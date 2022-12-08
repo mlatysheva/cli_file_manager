@@ -1,0 +1,17 @@
+{
+  "name": "file_manager",
+  "version": "1.0.0",
+  "description": "CLI app to work with the file system",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js --username maria"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlatysheva/cli_file_manager.git"
+  },
+  "author": "Maria Latysheva",
+  "license": "ISC",
+  "homepage": "https://github.com/mlatysheva/cli_file_manager#readme"
+}
