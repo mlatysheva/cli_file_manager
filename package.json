@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "CLI app to work with the file system",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js --username maria"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",

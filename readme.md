@@ -16,8 +16,10 @@ The file manager is able to do the following:
 ## Technical requirements
 
 - No external dependencies are required
+- Clone the repository by `git clone https://github.com/mlatysheva/cli_file_manager.git`
+- `cd` into the cloned repository.
 - Use 18 LTS version of Node.js
-- The program is started by npm-script `start` in following way:
+- Start the program by running:
 ```bash
 npm run start -- --username=your_username
 ```
