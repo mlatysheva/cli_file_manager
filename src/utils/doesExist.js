@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-export const doesExist = (paths) => {
+export const doesExist = (pathToItem) => {
   try {
-    return fs.lstatSync(paths).isDirectory();
+    return fs.existsSync(pathToItem);
   } catch (error) {
     console.error(error);
   }
