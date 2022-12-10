@@ -8,7 +8,7 @@ import { cwdMessage } from '../utils/cwdMessage.js';
 export const hash = async (pathToFile) => {
   try {
     const fileToHash = getAbsolutePath(pathToFile);
-    if (doesExist(fileToHash)) {
+    if (await doesExist(fileToHash)) {
       const content = await readFile(fileToHash);
       const hash = crypto.createHash('sha256').update(content).digest('hex');
       console.log(`The hash for the file ${pathToFile} is ${hash}`);

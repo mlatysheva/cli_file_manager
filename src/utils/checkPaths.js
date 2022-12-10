@@ -2,7 +2,7 @@ import path from 'path';
 import { doesExist } from './doesExist.js';
 import { getAbsolutePath } from './getAbsolutePath.js';
 
-export const checkPaths = (pathToFile, newDestination, filename) => {
+export const checkPaths = async (pathToFile, newDestination, filename) => {
 
   const absolutePath = getAbsolutePath(pathToFile);
   let newAbsolutePath;
@@ -11,13 +11,13 @@ export const checkPaths = (pathToFile, newDestination, filename) => {
   } else {
     newAbsolutePath = getAbsolutePath(newDestination);
   }      
-  const doesAbsolutePathExist = doesExist(absolutePath);
+  const doesAbsolutePathExist = await doesExist(absolutePath);
   let doesNewAbsolutePathExist = true;
   if (!newAbsolutePath.includes('.')) {
-    doesNewAbsolutePathExist = doesExist(newAbsolutePath);
+    doesNewAbsolutePathExist = await doesExist(newAbsolutePath);
     newAbsolutePath = path.resolve(newAbsolutePath, filename);
   } else {
-    doesNewAbsolutePathExist = doesExist(path.dirname(newAbsolutePath));
+    doesNewAbsolutePathExist = await doesExist(path.dirname(newAbsolutePath));
   }
   if (doesAbsolutePathExist && doesNewAbsolutePathExist) { 
     return {absolutePath, newAbsolutePath};

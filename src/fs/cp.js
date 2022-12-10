@@ -4,10 +4,10 @@ import { invalidInputMessage } from '../utils/invalidInputMessage.js';
 import { checkPaths } from '../utils/checkPaths.js';
 import { insertBeforeLastOccurrence } from '../utils/stringToInsert.js';
 
-export const cp = (fileToCopy, newDestination) => {
+export const cp = async (fileToCopy, newDestination) => {
   try {
     const filename = fileToCopy.replace(/^.*[\\\/]/, '');
-    const paths = checkPaths(fileToCopy, newDestination, filename);
+    const paths = await checkPaths(fileToCopy, newDestination, filename);
     if (paths) {
       let { absolutePath, newAbsolutePath } = paths;
       if (absolutePath === newAbsolutePath) {

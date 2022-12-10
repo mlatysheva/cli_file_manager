@@ -6,7 +6,7 @@ import { cwdMessage } from '../utils/cwdMessage.js';
 export const rn = async (fileToRename, newName) => {
   try {
     const absolutePath = getAbsolutePath(fileToRename);
-    const doesExistPath = doesExist(absolutePath);
+    const doesExistPath = await doesExist(absolutePath);
     if (doesExistPath) {
       await rename(absolutePath, getAbsolutePath(newName));
       console.log(`${fileToRename} was successfully renamed to ${newName}`);

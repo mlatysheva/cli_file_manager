@@ -1,9 +1,11 @@
 import fs from 'fs';
 
-export const doesExist = (pathToItem) => {
+export const doesExist = async (path) => {
   try {
-    return fs.existsSync(pathToItem);
+    await fs.promises.access(path);
+    return true;
   } catch (error) {
     console.error(error);
+    return false;    
   }
 }

@@ -11,7 +11,7 @@ export const decompress = async (fileToDecompress, newDestination) => {
       cwdMessage();
     } else {
       const filename = fileToDecompress.slice(0, -3).replace(/^.*[\\\/]/, '');
-      const paths = checkPaths(fileToDecompress, newDestination, filename);
+      const paths = await checkPaths(fileToDecompress, newDestination, filename);
       if (paths) {
         const { absolutePath, newAbsolutePath } = paths;       
         const fileToDecompress = createReadStream(absolutePath);

@@ -7,7 +7,7 @@ import { checkPaths } from '../utils/checkPaths.js';
 export const compress = async (fileToCompress, newDestination) => {
   try {
     const filename = fileToCompress.replace(/^.*[\\\/]/, '');
-    const paths = checkPaths(fileToCompress, newDestination, filename);
+    const paths = await checkPaths(fileToCompress, newDestination, filename);
     if (paths) {
       const { absolutePath, newAbsolutePath } = paths;    
       const fileToCompress = createReadStream(absolutePath);

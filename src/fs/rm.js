@@ -6,7 +6,7 @@ import { doesExist } from '../utils/doesExist.js';
 export const remove = async (fileToDelete) => {
   try {
     const absolutePath = getAbsolutePath(fileToDelete);
-    if (doesExist(absolutePath)) {
+    if (await doesExist(absolutePath)) {
       await rm(absolutePath);
       console.log(`${fileToDelete} was successfully deleted`);
     } else {

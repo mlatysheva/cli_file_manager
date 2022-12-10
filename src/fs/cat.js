@@ -7,7 +7,7 @@ import { EOL } from 'os';
 export const cat = async (pathToFile) => {
   try {    
     const fileToRead = getAbsolutePath(pathToFile);
-    if (doesExist(fileToRead)) {
+    if (await doesExist(fileToRead)) {
       const readableStream = await createReadStream(fileToRead);
 
       readableStream.on('error', () => {
