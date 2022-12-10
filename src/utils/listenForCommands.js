@@ -11,6 +11,11 @@ import { rn } from '../fs/rn.js';
 import { cp } from '../fs/cp.js';
 import { mv } from '../fs/mv.js';
 import { remove } from '../fs/rm.js';
+import { osOptions } from '../os/osOptions.js';
+import { invalidInputMessage } from './invalidInputMessage.js';
+import { hash } from '../hash/hash.js';
+import { compress } from '../compress/compress.js';
+import { decompress } from '../compress/decompress.js';
 
 export const listenForCommands = (username, userHomedir) => {
   let cwd = userHomedir;
@@ -43,7 +48,7 @@ export const listenForCommands = (username, userHomedir) => {
           cwd = cd(cwd, args);
           break;
         } else {
-          console.log('Specify a valid path');
+          invalidInputMessage();
           break;
         }
       };
@@ -57,7 +62,7 @@ export const listenForCommands = (username, userHomedir) => {
           await cat(pathToFile);
           break;
         } else {
-          console.log('Specify a valid path');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
@@ -68,7 +73,7 @@ export const listenForCommands = (username, userHomedir) => {
           await add(pathToFile);
           break;
         } else {
-          console.log('Specify a valid path');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
@@ -80,7 +85,7 @@ export const listenForCommands = (username, userHomedir) => {
           await rn(fileToRename, newName);
           break;
         } else {
-          console.log('Specify valid paths');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
@@ -92,7 +97,7 @@ export const listenForCommands = (username, userHomedir) => {
           cp(fileToCopy, pathToNewDirectory);
           break;
         } else {
-          console.log('Specify valid paths');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
@@ -104,7 +109,7 @@ export const listenForCommands = (username, userHomedir) => {
           mv(fileToMove, newDestination);
           break;
         } else {
-          console.log('Specify valid paths');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
@@ -115,11 +120,67 @@ export const listenForCommands = (username, userHomedir) => {
           await remove(pathToFile);
           break;
         } else {
-          console.log('Specify a valid path');
+          invalidInputMessage();
           cwdMessage();
           break;
         }
       };
-    }
-  })
+      case 'os': {
+        if (args.length > 0 && args[0].startsWith('--')) {
+          const arg = args[0].slice(2);
+          osOptions(arg);
+        } else {
+          invalidInputMessage('Invalid input! Specify a valid command after "os". Type "help" to see available commands.');
+          cwdMessage();
+        }
+      };
+      case "hash": {
+        if (args.length > 0) {
+          const pathToFile = args.join(' ');
+          await hash(pathToFile);
+        } else {
+          invalidInputMessage();
+          cwdMessage();
+        }
+        break;
+      };
+      case "compress": {
+        if (args.length === 2) {
+          const fileToCompress = args[0].toString();
+          const newDestination = args[1].toString();
+          compress(fileToCompress, newDestination);
+          break;
+        } else if (args.length === 1) {
+          const fileToCompress = args[0].toString();
+          compress(fileToCompress, fileToCompress);
+          break;
+        } else {
+          invalidInputMessage();
+          cwdMessage();
+          break;
+        }
+      };
+      case "decompress": {
+        if (args.length === 2) {
+          const fileToDecompress = args[0].toString();
+          const newDestination = args[1].toString();
+          decompress(fileToDecompress, newDestination);
+          break;
+        } else if (args.length === 1) {
+          const fileToDecompress = args[0].toString();
+          decompress(fileToDecompress, fileToDecompress);
+          break;
+        } else {
+          invalidInputMessage();
+          cwdMessage();
+          break;
+        }
+      };
+      default: {
+        invalidInputMessage('Invalid input! Type "help" to see available commands.');
+        cwdMessage();
+        break;
+      };
+    };  
+  }).on('close', () => {console.log(`Thank you for using File Manager, ${capitalizeFirstLetter(username)}!`)});
 }

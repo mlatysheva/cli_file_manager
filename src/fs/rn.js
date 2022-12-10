@@ -17,6 +17,6 @@ export const rn = async (fileToRename, newName) => {
       cwdMessage();
     }
   } catch (err) {
-    console.error(`${EOL}Operation failed!${EOL}${err}`);
+    console.error(`Operation failed! ${err}`);
   }
 };
