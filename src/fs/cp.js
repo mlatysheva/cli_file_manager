@@ -1,29 +1,22 @@
-import { createReadStream, createWriteStream, lstatSync } from 'fs';
-import { doesExist } from '../utils/doesExist.js';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
+import { createReadStream, createWriteStream } from 'fs';
 import { cwdMessage } from '../utils/cwdMessage.js';
-import path from 'path';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
+import { checkPaths } from '../utils/checkPaths.js';
+import { insertBeforeLastOccurrence } from '../utils/stringToInsert.js';
 
 export const cp = (fileToCopy, newDestination) => {
   try {
-    const absolutePath = getAbsolutePath(fileToCopy);
     const filename = fileToCopy.replace(/^.*[\\\/]/, '');
-    let newAbsolutePath = getAbsolutePath(newDestination);
-    const doesAbsolutePathExist = doesExist(absolutePath);
-    let doesNewAbsolutePathExist = true;
-    if (!newAbsolutePath.includes('.')) {
-      doesNewAbsolutePathExist = doesExist(newAbsolutePath);
-      newAbsolutePath = path.resolve(newAbsolutePath, filename);
-    } else {
-      const newAbsolutePathDirname = path.dirname(newAbsolutePath);
-      doesNewAbsolutePathExist = doesExist(newAbsolutePathDirname);
-    }
-    if (doesAbsolutePathExist && doesNewAbsolutePathExist) {  
+    const paths = checkPaths(fileToCopy, newDestination, filename);
+    if (paths) {
+      let { absolutePath, newAbsolutePath } = paths;
+      if (absolutePath === newAbsolutePath) {
+        newAbsolutePath = insertBeforeLastOccurrence(newAbsolutePath, '.', '_copy');
+      } 
       const readable = createReadStream(absolutePath);
       const writable = createWriteStream(newAbsolutePath);
       readable.pipe(writable);
-      console.log(`File ${fileToCopy} was successfully copied to ${newDestination}`);
+      console.log(`File ${fileToCopy} was successfully copied to ${newAbsolutePath}`);
       cwdMessage();
     } else {
       invalidInputMessage();

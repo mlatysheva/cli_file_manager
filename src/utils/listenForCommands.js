@@ -93,8 +93,12 @@ export const listenForCommands = (username, userHomedir) => {
       case 'cp': {
         if (args.length === 2) {
           const fileToCopy = args[0].toString();
-          const pathToNewDirectory = args[1].toString();
-          cp(fileToCopy, pathToNewDirectory);
+          const newDestination = args[1].toString();
+          cp(fileToCopy, newDestination);
+          break;
+        } else if (args.length === 1) {
+          const fileToCopy = args[0].toString();
+          cp(fileToCopy, fileToCopy);
           break;
         } else {
           invalidInputMessage();

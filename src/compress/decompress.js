@@ -1,10 +1,8 @@
-import path from 'path';
 import { createReadStream, createWriteStream } from 'fs';
 import zlib from 'zlib';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
-import { doesExist } from '../utils/doesExist.js';
 import { cwdMessage } from '../utils/cwdMessage.js';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
+import { checkPaths } from '../utils/checkPaths.js';
 
 export const decompress = async (fileToDecompress, newDestination) => {
   try {
@@ -12,23 +10,10 @@ export const decompress = async (fileToDecompress, newDestination) => {
       invalidInputMessage(`${fileToDecompress} is not a valid compressed file. Specify a file with a valid extention ".br"`);
       cwdMessage();
     } else {
-      const absolutePath = getAbsolutePath(fileToDecompress);
       const filename = fileToDecompress.slice(0, -3).replace(/^.*[\\\/]/, '');
-      let newAbsolutePath;
-      if (fileToDecompress === newDestination) {
-        newAbsolutePath = path.resolve(path.dirname(newDestination));
-      } else {
-        newAbsolutePath = getAbsolutePath(newDestination);
-      }      
-      const doesAbsolutePathExist = doesExist(absolutePath);
-      let doesNewAbsolutePathExist = true;
-      if (!newAbsolutePath.includes('.')) {
-        doesNewAbsolutePathExist = doesExist(newAbsolutePath);
-        newAbsolutePath = path.resolve(newAbsolutePath, filename);
-      } else {
-        doesNewAbsolutePathExist = doesExist(path.dirname(newAbsolutePath));
-      }
-      if (doesAbsolutePathExist && doesNewAbsolutePathExist) {   
+      const paths = checkPaths(fileToDecompress, newDestination, filename);
+      if (paths) {
+        const { absolutePath, newAbsolutePath } = paths;       
         const fileToDecompress = createReadStream(absolutePath);
         const writableStream = createWriteStream(newAbsolutePath);
         const brotli = zlib.createBrotliDecompress();
