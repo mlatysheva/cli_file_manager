@@ -3,6 +3,7 @@ import { cwdMessage } from '../utils/cwdMessage.js';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
 import { checkPaths } from '../utils/checkPaths.js';
 import { insertBeforeLastOccurrence } from '../utils/stringToInsert.js';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const cp = async (fileToCopy, newDestination) => {
   try {
@@ -16,14 +17,14 @@ export const cp = async (fileToCopy, newDestination) => {
       const readable = createReadStream(absolutePath);
       const writable = createWriteStream(newAbsolutePath);
       readable.pipe(writable);
-      console.log(`File ${fileToCopy} was successfully copied to ${newAbsolutePath}`);
+      console.log(consoleColors.cyan, `File ${fileToCopy} was successfully copied to ${newAbsolutePath}`);
       cwdMessage();
     } else {
       invalidInputMessage();
       cwdMessage();
     }
   } catch (err) {
-    console.error(`Operation failed! ${err}`);
+    console.error(consoleColors.red, `Operation failed! ${err}`);
     cwdMessage();
   }
 };

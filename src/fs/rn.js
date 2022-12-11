@@ -2,6 +2,7 @@ import { rename } from 'fs/promises';
 import { doesExist } from '../utils/doesExist.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 import { cwdMessage } from '../utils/cwdMessage.js';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const rn = async (fileToRename, newName) => {
   try {
@@ -9,13 +10,13 @@ export const rn = async (fileToRename, newName) => {
     const doesExistPath = await doesExist(absolutePath);
     if (doesExistPath) {
       await rename(absolutePath, getAbsolutePath(newName));
-      console.log(`${fileToRename} was successfully renamed to ${newName}`);
+      console.log(consoleColors.cyan, `${fileToRename} was successfully renamed to ${newName}`);
       cwdMessage();
     } else {
-      console.log(`No such file ${fileToRename} exists!`);
+      console.log(consoleColors.red, `No such file ${fileToRename} exists!`);
       cwdMessage();
     }
   } catch (err) {
-    console.error(`Operation failed! ${err}`);
+    console.error(consoleColors.red, `Operation failed! ${err}`);
   }
 };

@@ -3,6 +3,7 @@ import zlib from 'zlib';
 import { cwdMessage } from '../utils/cwdMessage.js';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
 import { checkPaths } from '../utils/checkPaths.js';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const decompress = async (fileToDecompress, newDestination) => {
   try {
@@ -20,7 +21,7 @@ export const decompress = async (fileToDecompress, newDestination) => {
 
         fileToDecompress.pipe(brotli).pipe(writableStream);
 
-        console.log(`The file ${filename} was successfully decompressed to ${newAbsolutePath}.`);
+        console.log(consoleColors.cyan, `The file ${fileToDecompress} was successfully decompressed to ${newAbsolutePath}.`);
         cwdMessage();
       } else {
         invalidInputMessage();
@@ -28,7 +29,7 @@ export const decompress = async (fileToDecompress, newDestination) => {
       }
     }
   } catch (err) {
-    console.log(`Operation failed! ${err}`);
+    console.log(consoleColors.red, `Operation failed! ${err}`);
     cwdMessage();
   }
 };

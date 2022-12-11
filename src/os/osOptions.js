@@ -1,4 +1,5 @@
 import os from 'os';
+import { consoleColors } from '../utils/consoleColors.js';
 import { cwdMessage } from '../utils/cwdMessage.js';
 
 export const osOptions = (osArg) => {
@@ -33,7 +34,7 @@ export const osOptions = (osArg) => {
       break;
     };
     default: {
-      console.log(`No such command ${osArg}. Type "help" to see available commands.`);
+      console.log(consoleColors.red, `No such command ${osArg}. Type "help" to see available commands.`);
       cwdMessage();
       break;
     };

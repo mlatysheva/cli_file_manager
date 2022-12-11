@@ -3,6 +3,7 @@ import { cwdMessage } from '../utils/cwdMessage.js';
 import { doesExist } from '../utils/doesExist.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 import { EOL } from 'os';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const cat = async (pathToFile) => {
   try {    
@@ -11,7 +12,7 @@ export const cat = async (pathToFile) => {
       const readableStream = await createReadStream(fileToRead);
 
       readableStream.on('error', () => {
-        console.error(`Error reading the file.`);
+        console.log(consoleColors.red, `Error reading the file.`);
       });
 
       readableStream.on('data', (chunk) => {
@@ -23,7 +24,7 @@ export const cat = async (pathToFile) => {
         cwdMessage();
       })
     } else {
-      console.error('Operation failed. The file does not exist.');
+      console.log(consoleColors.red, 'Operation failed. The file does not exist.');
       cwdMessage();
     };
     

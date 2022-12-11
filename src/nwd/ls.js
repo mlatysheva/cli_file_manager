@@ -1,15 +1,17 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import { cwdMessage } from '../utils/cwdMessage.js';
 
-export const ls = () => {
+export const ls = async() => {
   try {
-    const folder = process.cwd();  
-
-    const content = fs.readdirSync(folder, { withFileTypes: true }).map(item => {
+    const folder = process.cwd();
+    const itemsArray = [];
+    const items = await fs.readdir(folder, { withFileTypes: true });
+    await Promise.allSettled(items.map(async (item) => {
       const pathToItem = path.resolve(folder, item.name);
-      const itemStats = fs.lstatSync(pathToItem);
+      const itemStats = await fs.stat(pathToItem);
       let itemData = {};
+
       if (itemStats.isFile()) {
         itemData = {
           Name: item.name.length < 20 ? item.name : item.name.slice(20),
@@ -22,14 +24,14 @@ export const ls = () => {
           Type: 'directory',
         }
       }
-      return itemData;
-    });
+      itemsArray.push(itemData);
+    }));
 
-    content.sort((a, b) => (a.Type > b.Type) ? 1 : (a.Type === b.Type) ? ((a.Name > b.Name) ? 1 : -1) : -1 );
-    console.table(content);
+    itemsArray.sort((a, b) => (a.Type > b.Type) ? 1 : (a.Type === b.Type) ? ((a.Name > b.Name) ? 1 : -1) : -1 );
+    console.table(itemsArray);
     cwdMessage();
-
-  } catch(err) {
-    console.error(err);
+  } catch (error) {
+    console.log(`Operation failed! ${error}`);
+    cwdMessage();
   }
-};
+}

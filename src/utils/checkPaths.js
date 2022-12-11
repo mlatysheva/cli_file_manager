@@ -1,3 +1,10 @@
+/**
+ * @description: function checks if the paths are valid and resolves the issue when the user does not indicate 
+ * the destination folder to use the original folder as the destination folder
+ * @param: pathToFile - path to the original file, newDestination - path to the modified file, filename - name of the original file with extension
+ * @return: object with resolved paths to the original file and new destination if the user indicated valid paths or
+ * null otherwise
+ */
 import path from 'path';
 import { doesExist } from './doesExist.js';
 import { getAbsolutePath } from './getAbsolutePath.js';

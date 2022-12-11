@@ -3,6 +3,7 @@ import zlib from 'zlib';
 import { cwdMessage } from '../utils/cwdMessage.js';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
 import { checkPaths } from '../utils/checkPaths.js';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const compress = async (fileToCompress, newDestination) => {
   try {
@@ -15,14 +16,14 @@ export const compress = async (fileToCompress, newDestination) => {
       const brotli = zlib.createBrotliCompress();
 
       fileToCompress.pipe(brotli).pipe(writableStream);
-      console.log(`The file ${filename} was successfully compressed to ${newAbsolutePath}.br.`);
+      console.log(consoleColors.cyan, `The file ${absolutePath} was successfully compressed to ${newAbsolutePath}.br.`);
       cwdMessage();
     } else {
       invalidInputMessage();
       cwdMessage();
     }
   } catch (err) {
-    console.log(`Operation failed! ${err}`);
+    console.log(consoleColors.red, `Operation failed! ${err}`);
     cwdMessage();
   }
 };
