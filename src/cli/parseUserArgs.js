@@ -1,3 +1,5 @@
+import { consoleColors } from '../utils/consoleColors';
+
 export const parseUserArgs = () => {
   try{
     const userArgs = process.argv.slice(2).toString();
@@ -11,6 +13,6 @@ export const parseUserArgs = () => {
     };
     return argsObject;
   } catch(err) {
-    throw new Error('Error parcing arguments');
+    console.error(consoleColors.red, `Operation failed! Error parcing arguments. ${err}`);
   }
 };

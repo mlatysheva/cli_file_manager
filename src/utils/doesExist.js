@@ -1,8 +1,8 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 
 export const doesExist = async (path) => {
   try {
-    await fs.promises.access(path);
+    await fs.access(path);
     return true;
   } catch (error) {
     console.error(error);

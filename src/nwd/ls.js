@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { consoleColors } from '../utils/consoleColors.js';
 import { cwdMessage } from '../utils/cwdMessage.js';
 
 export const ls = async() => {
@@ -31,7 +32,7 @@ export const ls = async() => {
     console.table(itemsArray);
     cwdMessage();
   } catch (error) {
-    console.log(`Operation failed! ${error}`);
+    console.log(consoleColors.red, `Operation failed! ${error}`);
     cwdMessage();
   }
 }

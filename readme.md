@@ -112,3 +112,4 @@ The list of operations and their syntax:
     ```bash
     decompress path_to_file path_to_destination
     ```  
+- If `path_to_destination` is not indicated, the corresponding operation (`cp`, `compress` or `decompress` a file) is performed in the same directory as the original file. If copying is taking place, the string `_copy` is added to the filename before its extension.
