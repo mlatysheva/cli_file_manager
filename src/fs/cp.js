@@ -9,6 +9,7 @@ export const cp = async (fileToCopy, newDestination) => {
   try {
     const filename = fileToCopy.replace(/^.*[\\\/]/, '');
     const paths = await checkPaths(fileToCopy, newDestination, filename);
+    console.log(`in cp paths is ${paths}`);
     if (paths) {
       let { absolutePath, newAbsolutePath } = paths;
       if (absolutePath === newAbsolutePath) {

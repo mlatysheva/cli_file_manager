@@ -1,4 +1,4 @@
-import { consoleColors } from '../utils/consoleColors';
+import { consoleColors } from '../utils/consoleColors.js';
 
 export const parseUserArgs = () => {
   try{

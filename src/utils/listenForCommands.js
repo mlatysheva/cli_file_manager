@@ -45,7 +45,7 @@ export const listenForCommands = (username, userHomedir) => {
       };
       case 'cd': {
         if (args.length > 0) {
-          cwd = cd(cwd, args);
+          cwd = await cd(cwd, args);
           break;
         } else {
           invalidInputMessage();
