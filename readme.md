@@ -76,8 +76,8 @@ The list of operations and their syntax:
     ```bash
     cp path_to_file path_to_new_directory
     ```
-    ![Copy to another folder](screeshots/copy_to_destination.png)
-    ![Copy to the same folder](screeshots/copy_to_same_directory.png)
+    ![Copy to another folder](develop/screeshots/copy_to_destination.png)
+    ![Copy to the same folder](develop/screeshots/copy_to_same_directory.png)
     - Move a file (same as the `copy` but the initial file is deleted, the copying part is done with Readable and Writable streams): 
     ```bash
     mv path_to_file path_to_new_directory
@@ -86,7 +86,7 @@ The list of operations and their syntax:
     ```bash
     rm path_to_file
     ```
-    ![Delete a file](screeshots/delete.png)
+    ![Delete a file](develop/screeshots/delete.png)
 - Operating system info (prints the following information into the console)
     - Get EOL (default system End-Of-Line) and print it to console  
     ```bash
@@ -113,16 +113,16 @@ The list of operations and their syntax:
     ```bash
     hash path_to_file
     ```
-    ![Hash](screeshots/hash.png)
+    ![Hash](develop/screeshots/hash.png)
 - Compress and decompress operations  
     - Compress a file (the Brotli algorithm and Streams API are used)  
     ```bash
     compress path_to_file path_to_destination
     ```
-    ![Compress a file](screeshots/compress.png)
+    ![Compress a file](develop/screeshots/compress.png)
     - Decompress a file (the Brotli algorithm and Streams API are used)  
     ```bash
     decompress path_to_file path_to_destination
     ```  
-    ![Decompress a file](screeshots/decompress.png)
+    ![Decompress a file](develop/screeshots/decompress.png)
 - If `path_to_destination` is not indicated, the corresponding operation (`cp`, `compress` or `decompress` a file) is performed in the same directory as the original file. If copying is taking place, the string `_copy` is added to the filename before its extension.
