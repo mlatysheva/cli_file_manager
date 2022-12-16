@@ -30,13 +30,13 @@ npm run start -- --username=your_username
 - After the program work finished (`ctrl + c` pressed or the user sent the `.exit` command to the console), the program displays the following text in the console:  
 `Thank you for using File Manager, Username, goodbye!`  
 
-![Welcome screen](screeshots/welcome_screen.png)
+![Welcome screen](screenshots/welcome_screen.png)
 - At the start of the program and after each end of input/operation the current working directory is printed in following way:  
 `You are currently in path_to_working_directory`  
 - The starting working directory is the current user's home directory (for example, on Windows it's something like `system_drive/Users/Username`)
 - By default, the program prompts the user in the console to print commands and wait for results 
 - By typing `help` the user can see the list of available commands
-![Help](screeshots/help.png)
+![Help](screenshots/help.png)
 - In case of an unknown operation or invalid input (missing mandatory arguments, wrong data in the arguments, etc.), the `Invalid input` message is shown and the user is able to enter another command
 - In case of an error during execution of an operation, the `Operation failed` message is shown and the user is able to enter another command (e.g. an attempt to perform an operation on a non-existent file or work on a non-existent path results in the operation fail)
 - The user can't go upper than the root directory (e.g. on Windows it's the current local drive root). If the user tries to do so, the current working directory doesn't change  
@@ -58,7 +58,7 @@ The list of operations and their syntax:
     ```bash
     ls
     ```
-    ![Content of a directory](screeshots/directory_content.png)
+    ![Content of a directory](screenshots/directory_content.png)
 - Basic operations with files
     - Read a file and print its content into the console (is implemented with the Readable stream): 
     ```bash
@@ -76,8 +76,8 @@ The list of operations and their syntax:
     ```bash
     cp path_to_file path_to_new_directory
     ```
-    ![Copy to another folder](develop/screeshots/copy_to_destination.png)
-    ![Copy to the same folder](develop/screeshots/copy_to_same_directory.png)
+    ![Copy to another folder](screenshots/copy_to_destination.png)
+    ![Copy to the same folder](screenshots/copy_to_same_directory.png)
     - Move a file (same as the `copy` but the initial file is deleted, the copying part is done with Readable and Writable streams): 
     ```bash
     mv path_to_file path_to_new_directory
@@ -86,7 +86,7 @@ The list of operations and their syntax:
     ```bash
     rm path_to_file
     ```
-    ![Delete a file](develop/screeshots/delete.png)
+    ![Delete a file](screenshots/delete.png)
 - Operating system info (prints the following information into the console)
     - Get EOL (default system End-Of-Line) and print it to console  
     ```bash
@@ -113,16 +113,16 @@ The list of operations and their syntax:
     ```bash
     hash path_to_file
     ```
-    ![Hash](develop/screeshots/hash.png)
+    ![Hash](screenshots/hash.png)
 - Compress and decompress operations  
     - Compress a file (the Brotli algorithm and Streams API are used)  
     ```bash
     compress path_to_file path_to_destination
     ```
-    ![Compress a file](develop/screeshots/compress.png)
+    ![Compress a file](screenshots/compress.png)
     - Decompress a file (the Brotli algorithm and Streams API are used)  
     ```bash
     decompress path_to_file path_to_destination
     ```  
-    ![Decompress a file](develop/screeshots/decompress.png)
+    ![Decompress a file](screenshots/decompress.png)
 - If `path_to_destination` is not indicated, the corresponding operation (`cp`, `compress` or `decompress` a file) is performed in the same directory as the original file. If copying is taking place, the string `_copy` is added to the filename before its extension.
