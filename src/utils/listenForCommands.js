@@ -26,119 +26,118 @@ export const listenForCommands = (username, userHomedir) => {
   });
 
   rl.on('line', async (line) => {
-    const [command, ...args] = line.trim().split(" ");
+    const [command, ...args] = line.trim().split(' ');
     switch (command) {
       case 'exit':
-        case '.exit': 
-        case process.exit: {
-          console.log(`Thank you for using the File Manager, ${capitalizeFirstLetter(username)}!`);
-          process.exit();
-        };
+      case '.exit':
+      case process.exit: {
+        console.log(
+          `Thank you for using the File Manager, ${capitalizeFirstLetter(
+            username
+          )}!`
+        );
+        process.exit();
+      }
       case 'help': {
         help();
         cwdMessage();
         break;
-      };
+      }
       case 'up': {
         cwd = moveUp(cwd);
         break;
-      };
+      }
       case 'cd': {
         if (args.length > 0) {
           cwd = await cd(cwd, args);
-          break;
         } else {
           invalidInputMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'ls': {
         ls();
         break;
-      };
+      }
       case 'cat': {
         if (args.length > 0) {
           const pathToFile = args.join(' ').toString();
           await cat(pathToFile);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'add': {
         if (args.length > 0) {
           const pathToFile = args.join(' ').toString();
           await add(pathToFile);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'rn': {
         if (args.length === 2) {
           const fileToRename = args[0].toString();
           const newName = args[1].toString();
           await rn(fileToRename, newName);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'cp': {
         if (args.length === 2) {
           const fileToCopy = args[0].toString();
           const newDestination = args[1].toString();
           cp(fileToCopy, newDestination);
-          break;
         } else if (args.length === 1) {
           const fileToCopy = args[0].toString();
           cp(fileToCopy, fileToCopy);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'mv': {
         if (args.length === 2) {
           const fileToMove = args[0].toString();
           const newDestination = args[1].toString();
           mv(fileToMove, newDestination);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'rm': {
         if (args.length === 1) {
           const pathToFile = args[0];
           await remove(pathToFile);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       case 'os': {
         if (args.length > 0 && args[0].startsWith('--')) {
           const arg = args[0].slice(2);
           osOptions(arg);
         } else {
-          invalidInputMessage('Invalid input! Specify a valid command after "os". Type "help" to see available commands.');
+          invalidInputMessage(
+            'Invalid input! Specify a valid command after "os". Type "help" to see available commands.'
+          );
           cwdMessage();
         }
-      };
-      case "hash": {
+        break;
+      }
+      case 'hash': {
         if (args.length > 0) {
           const pathToFile = args.join(' ');
           await hash(pathToFile);
@@ -147,44 +146,46 @@ export const listenForCommands = (username, userHomedir) => {
           cwdMessage();
         }
         break;
-      };
-      case "compress": {
+      }
+      case 'compress': {
         if (args.length === 2) {
           const fileToCompress = args[0].toString();
           const newDestination = args[1].toString();
           compress(fileToCompress, newDestination);
-          break;
         } else if (args.length === 1) {
           const fileToCompress = args[0].toString();
           compress(fileToCompress, fileToCompress);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
-      case "decompress": {
+        break;
+      }
+      case 'decompress': {
         if (args.length === 2) {
           const fileToDecompress = args[0].toString();
           const newDestination = args[1].toString();
           decompress(fileToDecompress, newDestination);
-          break;
         } else if (args.length === 1) {
           const fileToDecompress = args[0].toString();
           decompress(fileToDecompress, fileToDecompress);
-          break;
         } else {
           invalidInputMessage();
           cwdMessage();
-          break;
         }
-      };
+        break;
+      }
       default: {
-        invalidInputMessage('Invalid input! Type "help" to see available commands.');
+        invalidInputMessage(
+          'Invalid input! Type "help" to see available commands.'
+        );
         cwdMessage();
         break;
-      };
-    };  
-  }).on('close', () => {console.log(`Thank you for using File Manager, ${capitalizeFirstLetter(username)}!`)});
-}
+      }
+    }
+  }).on('close', () => {
+    console.log(
+      `Thank you for using File Manager, ${capitalizeFirstLetter(username)}!`
+    );
+  });
+};
