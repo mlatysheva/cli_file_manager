@@ -6,7 +6,7 @@ import { EOL } from 'os';
 import { consoleColors } from '../utils/consoleColors.js';
 
 export const cat = async (pathToFile) => {
-  try {    
+  try {
     const fileToRead = getAbsolutePath(pathToFile);
     if (await doesExist(fileToRead)) {
       const readableStream = await createReadStream(fileToRead);
@@ -22,13 +22,14 @@ export const cat = async (pathToFile) => {
       readableStream.on('end', () => {
         console.log(EOL);
         cwdMessage();
-      })
+      });
     } else {
-      console.log(consoleColors.red, 'Operation failed. The file does not exist.');
-      cwdMessage();
-    };
-    
-  } catch(err) {
+      console.log(
+        consoleColors.red,
+        'Operation failed. The file does not exist.'
+      );
+    }
+  } catch (err) {
     console.error(err);
   }
 };

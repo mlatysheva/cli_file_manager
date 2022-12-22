@@ -3,7 +3,6 @@ import { readFile } from 'fs/promises';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 import { invalidInputMessage } from '../utils/invalidInputMessage.js';
 import { doesExist } from '../utils/doesExist.js';
-import { cwdMessage } from '../utils/cwdMessage.js';
 import { consoleColors } from '../utils/consoleColors.js';
 
 export const hash = async (pathToFile) => {
@@ -12,13 +11,14 @@ export const hash = async (pathToFile) => {
     if (await doesExist(fileToHash)) {
       const content = await readFile(fileToHash);
       const hash = crypto.createHash('sha256').update(content).digest('hex');
-      console.log(consoleColors.cyan, `The hash for the file ${pathToFile} is ${hash}`);
-      cwdMessage();
+      console.log(
+        consoleColors.cyan,
+        `The hash for the file ${pathToFile} is ${hash}`
+      );
     } else {
       invalidInputMessage();
-      cwdMessage();
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
 };

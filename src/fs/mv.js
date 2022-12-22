@@ -1,5 +1,4 @@
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
-import { cwdMessage } from '../utils/cwdMessage.js';
 import { cp } from './cp.js';
 import { rm } from 'fs/promises';
 import { consoleColors } from '../utils/consoleColors.js';
@@ -9,10 +8,11 @@ export const mv = async (fileToMove, newDestination) => {
     cp(fileToMove, newDestination);
     const absolutePath = getAbsolutePath(fileToMove);
     await rm(absolutePath);
-    console.log(consoleColors.cyan, `${fileToMove} was successfully moved to ${newDestination}`);
-    cwdMessage();
+    console.log(
+      consoleColors.cyan,
+      `${fileToMove} was successfully moved to ${newDestination}`
+    );
   } catch (err) {
     console.error(consoleColors.red, `Operation failed! ${err}`);
-    cwdMessage();
   }
 };
